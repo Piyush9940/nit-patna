@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Traffic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .close-icon {
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .contact-header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+        }
+
+        .contact-header h2 {
+            margin: 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .try {
+            text-align: center;
+        }
+
+        .contact-form {
+            padding: 30px;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #343a40;
+        }
+
+        .btn-send {
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 0;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn-send:hover {
+            background-color: #23272b;
+        }
+
+        .contact-info {
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+
+        .contact-info h4 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            margin-bottom: 25px;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .hero-section {
+            background: url('https://blog.goodvisionlive.com/hs-fs/hubfs/smart-car-navigation-screen-with-speedometer.jpg?width=2000&height=1333&name=smart-car-navigation-screen-with-speedometer.jpg') no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hover-bounce:hover {
+            animation: bounce 4s;
+        }
+
+        .feature-card {
+            border: none;
+            transition: transform 0.3s ease;
+            border-radius: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        .feature-card:hover {
+            background-color: #eaf6ff;
+            transform: translateY(-10px);
+            animation: bounce 3s;
+        }
+
+        .traffic-heading {
+            background-color: #f8f9fa;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .fw-bold {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .left-image {
+            background-image: url('https://media.wired.com/photos/593257829be5e55af6c24476/master/w_2560%2Cc_limit/trafficlight-inline.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: zoomIn 20s infinite alternate;
+            height: 100vh;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .content-section {
+            padding: 60px;
+        }
+
+        h4 {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .size {
+            font-size: 15px;
+            font-style: normal;
+
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-primary" href="#"> SmartTraffic</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleIcon(this)">
+                <span class="navbar-toggler-icon open-icon"></span>
+                <span class="close-icon d-none">&times;</span>
+            </button>
+
+            <script>
+                function toggleIcon(btn) {
+                    const closeIcon = btn.querySelector('.close-icon');
+                    const openIcon = btn.querySelector('.open-icon');
+                    const navbar = document.getElementById('navbarNav');
+
+                    navbar.classList.toggle('show');
+                    closeIcon.classList.toggle('d-none');
+                    openIcon.classList.toggle('d-none');
+                }
+            </script>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-house-user icons"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-shield"></i> Insurance</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-regular fa-life-ring"></i> Live Track</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-regular fa-bookmark"></i> Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-circle-exclamation"></i> Learn More</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-phone"></i> Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-circle-exclamation"></i> About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> <i class="fa-solid fa-question"></i> Help</a></li>
+                    <li class="nav-item"><a class="btn btn-primary" href="#"> <i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section d-flex align-items-center">
+        <div class="container text-white text-left">
+            <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">Smart Traffic Management System</h1>
+            <p class="lead animate__animated animate__fadeInUp text-white">
+                Revolutionizing urban mobility with AI-powered traffic management solutions.
+                <br />
+                Experience smoother traffic flow, reduced congestion, and enhanced road safety.
+            </p>
+            <div class="mt-4">
+                <a href="#" class="btn btn-primary btn-lg me-3 animate__animated animate__fadeInLeft">Learn More</a>
+                <a href="#" class="btn btn-light btn-lg animate__animated animate__fadeInRight">View Features</a>
+            </div>
+        </div>
+    </header>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <div id="sectionLearnMore">
+        <section class="features-section py-5 bg-light">
+            <div class="container">
+                <p class="text-center text-secondary mb-5">Discover how our advanced system is transforming urban mobility</p>
+                <div class="row">
+                    <!-- Left Side -->
+                    <div class="col-md-6 animate__animated animate__fadeInLeft">
+                        <div class="mb-4 hover-bounce">
+                            <h5><i class="bi bi-cpu me-2 text-primary"></i><strong>Advanced AI Technology</strong></h5>
+                            <div class="bg-white p-3 shadow-sm rounded border-start border-5 border-primary">
+                                Our system utilizes cutting-edge artificial intelligence and machine learning algorithms to analyze traffic patterns in real-time. This enables predictive traffic management and optimal signal timing adjustments.
+                            </div>
+                        </div>
+
+                        <div class="hover-bounce">
+                            <h5><i class="bi bi-lightning-charge me-2 text-success"></i><strong>Real-time Adaptability</strong></h5>
+                            <p class="bg-white p-3 shadow-sm rounded border-start border-5 border-success">
+                                The system continuously monitors traffic conditions and adapts signal timings instantly to respond to changing traffic demands, special events, and emergency situations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="col-md-6 animate__animated animate__fadeInRight">
+                        <h5 class="mb-3"><strong>Key Benefits</strong></h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2 hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Reduced traffic congestion by up to 30%</li>
+                            <li class="mb-2 hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Decreased average travel time by 25%</li>
+                            <li class="mb-2 hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Lower carbon emissions through optimized traffic flow</li>
+                            <li class="mb-2 hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Enhanced road safety with predictive incident management</li>
+                            <li class="mb-2 hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Improved emergency response times</li>
+                            <li class="hover-bounce"><i class="bi bi-check-circle-fill text-primary me-2"></i>Real-time traffic updates and alternative route suggestions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="traffic-heading text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-2">Comprehensive Traffic Solutions</h2>
+            <p class="text-muted">Our advanced system provides cutting-edge features for efficient traffic management</p>
+        </div>
+    </section>
+
+    <section class="feature-cards py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-eye-fill fs-1 text-primary mb-3"></i>
+                        <h5>Real-time Monitoring</h5>
+                        <p>Advanced AI powered cameras for real-time traffic monitoring and analysis.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-signpost-split-fill fs-1 text-info mb-3"></i>
+                        <h5>Smart Routing</h5>
+                        <p>Intelligent route optimization to reduce congestion and improve traffic flow.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-exclamation-triangle-fill fs-1 text-warning mb-3"></i>
+                        <h5>Incident Management</h5>
+                        <p>Quick response system for traffic incidents and emergency situations.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-graph-up fs-1 text-success mb-3"></i>
+                        <h5>Traffic Analytics</h5>
+                        <p>Detailed analytics and insights for better traffic management decisions.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-bar-chart-line-fill fs-1 text-secondary mb-3"></i>
+                        <h5>Performance Metrics</h5>
+                        <p>Comprehensive reporting and performance tracking capabilities.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card feature-card shadow-sm p-4 text-center hover-bounce">
+                        <i class="bi bi-chat-dots-fill fs-1 text-primary mb-3"></i>
+                        <h5>Communication System</h5>
+                        <p>Integrated communication platform for all stakeholders.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contact-container">
+        <div class="contact-header">
+            <h2>Get in Touch</h2>
+            <p class="try">Have questions? We're here to help you 24/7!</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="contact-form">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-send">Send Message</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <h4>Our Location</h4>
+                        <p>123 Traffic, Avenue, Mount City, 12345</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>Email Us</h4>
+                        <p>emailus@murutraffic.com</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>Call Us</h4>
+                        <p>+1 (353) 523-6567</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4>Working Hours</h4>
+                        <p>24/7 Support Available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <section class="traffic-heading text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-2">About SmartTraffic</h2>
+            <p class="text-muted">Leading the future of intelligent traffic management</p>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-md-6 left-image"></div>
+            <div class="col-md-6 d-flex align-items-center content-section">
+                <div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card feature-card shadow-sm p-4 text-center hover-bounce fs-1  mb-3">
+                            <h4>Our Mission</h4>
+                            <p>To revolutionize urban mobility through innovative traffic management solutions that create safer, more efficient cities.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card feature-card shadow-sm p-4 text-center hover-bounce fs-1 mb-3">
+                            <h4>Our Vision</h4>
+                            <p>Creating smart cities where traffic flows seamlessly, powered by cutting-edge technology and data-driven decisions.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="card feature-card shadow-sm p-4 text-center hover-bounce fs-1  mb-3">
+                            <h4>Our Values</h4>
+                            <ul>
+                                <li class="size">Innovation in traffic management</li>
+                                <li class="size">Commitment to road safety</li>
+                                <li class="size">Environmental sustainability</li>
+                                <li class="size">Community-focused solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

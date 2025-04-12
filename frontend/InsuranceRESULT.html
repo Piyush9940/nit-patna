@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insurance Result Page</title>
+
+  <!-- Bootstrap & AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(to right,  #2c5364 , #203a43,  #0f2027);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .card {
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .btn-custom {
+      background-color: #00cec9;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 12px 30px;
+      border: none;
+      box-shadow: 0 0 10px #00cec9;
+      transition: all 0.4s;
+    }
+
+    .btn-custom:hover {
+      background-color: #01a3a4;
+      box-shadow: 0 0 15px #00cec9, 0 0 20px #00cec9;
+    }
+
+    .badge-risk {
+      font-size: 1rem;
+      padding: 0.6em 1.2em;
+    }
+
+    .progress-bar {
+      background-color: #ff9f43;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container text-center">
+  <h2 data-aos="fade-down" class="mb-4"><i class="bi bi-shield-check text-info"></i> Insurance Assessment Result</h2>
+
+  <div class="row g-4">
+    <div class="col-md-6" data-aos="fade-right">
+      <div class="card p-4 text-center">
+        <h5>Risk Score</h5>
+        <div class="fs-3 text-warning">72%</div>
+        <div class="progress mt-2" style="height: 10px;">
+          <div class="progress-bar" style="width: 72%"></div>
+        </div>
+        <span class="badge bg-warning badge-risk mt-2">Moderate Risk</span>
+      </div>
+    </div>
+
+    <div class="col-md-6" data-aos="fade-left">
+      <div class="card p-4 text-center">
+        <h5>Suggested Plan</h5>
+        <p class="fs-5">Comprehensive Premium Plan</p>
+        <span class="badge bg-success badge-risk">Recommended</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Info Cards -->
+  <div class="row g-4 mt-4">
+    <div class="col-md-6" data-aos="zoom-in-up">
+      <div class="card p-3">
+        <h6><i class="bi bi-buildings"></i> Best Insurance Provider Match</h6>
+        <p class="mb-0">SecureDrive Assurance Co.</p>
+      </div>
+    </div>
+    <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="150">
+      <div class="card p-3">
+        <h6><i class="bi bi-calendar-check"></i> Next Renewal Due</h6>
+        <p class="mb-0">25 August 2025</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Details -->
+  <div class="result-section text-start" data-aos="fade-up">
+    <div class="card p-4 mt-5">
+      <h5 class="mb-3"><i class="bi bi-info-circle"></i> Result Breakdown</h5>
+      <ul class="list-group list-group-flush text-white">
+        <li class="list-group-item bg-transparent border-light">
+          <i class="bi bi-speedometer2 text-warning"></i> Average Speed: <strong>68 km/h</strong>
+        </li>
+        <li class="list-group-item bg-transparent border-light">
+          <i class="bi bi-moon-stars text-info"></i> Night Driving: <strong>22%</strong>
+        </li>
+        <li class="list-group-item bg-transparent border-light">
+          <i class="bi bi-exclamation-triangle text-danger"></i> Sudden Brakes Detected: <strong>4 times</strong>
+        </li>
+        <li class="list-group-item bg-transparent border-light">
+          <i class="bi bi-check-circle text-success"></i> Compliance Score: <strong>86%</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="mt-5">
+    <button class="btn btn-custom"><i class="bi bi-journal-text me-2"></i>View Detailed Report</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Traffic Payment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to right, #adf0ff, #a5def2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .container-box {
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      max-width: 1100px;
+      width: 100%;
+      padding: 40px;
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #007bff;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    @keyframes fadeInDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .form-label i {
+      margin-right: 6px;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-pay {
+      background: #007bff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-pay:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .qr-box {
+      background-color: #f0f8ff;
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px dashed #007bff;
+      height: 300px;
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    .qr-box span {
+      font-size: 18px;
+      color: #007bff;
+      text-align: center;
+    }
+
+    .instructions {
+      background-color: #f8f9fa;
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeInSlideUp 1.2s ease-in-out both;
+    }
+
+    .instructions h5 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUpSlideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+
+      .qr-box {
+        margin-bottom: 30px;
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-box">
+    <h2 class="section-title text-center">Smart Traffic Payment Portal</h2>
+
+    <div class="row">
+      <!-- QR Code Section -->
+      <div class="col-md-5 mb-4">
+        <div class="qr-box">
+          <span><i class="bi bi-qr-code-scan" style="font-size: 40px;"></i><br> Scan your QR Code here</span>
+        </div>
+      </div>
+
+      <!-- Payment Form -->
+      <div class="col-md-7">
+        <form id="paymentForm">
+          <div class="mb-3">
+            <label for="cardNumber" class="form-label"><i class="bi bi-credit-card"></i> Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" maxlength="16" required />
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="expiryDate" class="form-label"><i class="bi bi-calendar-event"></i> Expiry Date</label>
+              <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="cvv" class="form-label"><i class="bi bi-shield-lock"></i> CVV</label>
+              <input type="password" class="form-control" id="cvv" maxlength="3" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="cardName" class="form-label"><i class="bi bi-person-badge"></i> Cardholder Name</label>
+            <input type="text" class="form-control" id="cardName" required />
+          </div>
+          <button type="submit" class="btn-pay w-100">Pay Now</button>
+        </form>
+        <div id="successMessage" class="success-message">Payment Successful!</div>
+      </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div class="instructions mt-5">
+      <h5><i class="bi bi-info-circle-fill"></i> Instructions</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">1. You can pay either by scanning the QR code or by entering your card details.</li>
+        <li class="list-group-item">2. Ensure the card number is 16 digits and matches your bank-issued card.</li>
+        <li class="list-group-item">3. CVV is a 3-digit code found on the back of your card.</li>
+        <li class="list-group-item">4. Enter expiry date in the format MM/YY (e.g., 09/26).</li>
+        <li class="list-group-item">5. For QR payment, scan the code using your mobile UPI app.</li>
+        <li class="list-group-item">6. Do not refresh or close the page during payment processing.</li>
+        <li class="list-group-item">7. You will see a success message once the transaction is complete.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const btn = document.querySelector('.btn-pay');
+      btn.innerText = "Processing...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerText = "Pay Now";
+        btn.disabled = false;
+        document.getElementById("successMessage").style.display = "block";
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>

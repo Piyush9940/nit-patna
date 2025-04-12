@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insurance Test Page</title>
+
+  <!-- Bootstrap + AOS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(-45deg, #2c3e50, #3498db, #4ca1af, #2c3e50);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .form-check-label, .form-select {
+      margin-top: 5px;
+    }
+
+    .btn-submit {
+      background-color: #00cec9;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #00cec9;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background-color: #01a3a4;
+      box-shadow: 0 0 20px #00cec9, 0 0 30px #00cec9;
+    }
+
+    #typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 4px solid #fff;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards;
+      font-size: 1.8rem;
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .progress {
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    .toast {
+      background-color: rgba(40, 167, 69, 0.9);
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div id="typewriter">Let's check your insurance readiness!</div>
+
+  <div class="progress">
+    <div class="progress-bar bg-success" id="progressBar" style="width: 0%"></div>
+  </div>
+
+  <div class="card p-4" data-aos="fade-up">
+    <form id="insuranceTestForm">
+
+      <div class="mb-4">
+        <label class="form-label">1. How often do you drive at night?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="nightDriving" value="often" required>
+          <label class="form-check-label">Often</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="nightDriving" value="rarely">
+          <label class="form-check-label">Rarely</label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">2. How many accidents have you had in the past year?</label>
+        <input type="number" class="form-control" name="accidents" required min="0" />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">3. How frequently do you use seat belts?</label>
+        <select class="form-select" name="seatbelt" required>
+          <option value="">Select...</option>
+          <option value="always">Always</option>
+          <option value="sometimes">Sometimes</option>
+          <option value="never">Never</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">4. Do you regularly maintain your vehicle?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="maintenance" value="yes" required>
+          <label class="form-check-label">Yes</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="maintenance" value="no">
+          <label class="form-check-label">No</label>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">5. How old is your vehicle (in years)?</label>
+        <input type="number" class="form-control" name="vehicleAge" required min="0" />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">6. How often do you service your car?</label>
+        <select class="form-select" name="serviceFrequency" required>
+          <option value="">Select...</option>
+          <option value="every-3-months">Every 3 months</option>
+          <option value="every-6-months">Every 6 months</option>
+          <option value="every-1-year">Every 1 year</option>
+          <option value="rarely">Rarely</option>
+        </select>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-submit mt-3"><i class="bi bi-rocket-takeoff"></i> Submit Test</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast-container">
+    <div class="toast align-items-center text-white show" id="submitToast" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-check2-circle me-2"></i> Test submitted successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="document.getElementById('submitToast').style.display='none';"></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  const form = document.getElementById("insuranceTestForm");
+  const progressBar = document.getElementById("progressBar");
+
+  const totalFields = 6; // updated to reflect new questions
+
+  form.addEventListener("input", () => {
+    const filledFields = Array.from(form.elements).filter(el =>
+      (el.type === "radio" && el.checked) ||
+      (el.tagName === "SELECT" && el.value) ||
+      (el.type === "number" && el.value)
+    ).length;
+    const percentage = Math.min((filledFields / totalFields) * 100, 100);
+    progressBar.style.width = percentage + "%";
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    form.reset();
+    progressBar.style.width = "0%";
+    document.getElementById("submitToast").style.display = "block";
+  });
+</script>
+</body>
+</html>
