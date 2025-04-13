@@ -131,6 +131,6 @@ const speedSchema = new mongoose.Schema(
 },
 {timestamps:true}
 );
-const speedModel=mongoose.model("Speed",speedSchema);
-export default speedModel;
+const adminModel= mongoose.model("Admin", speedSchema);
+export default adminModel;
 // speedModel.createIndexes({ CurrentSpeed: 1, speedLimit: 1 }, { unique: true });

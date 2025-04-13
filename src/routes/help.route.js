@@ -1,4 +1,5 @@
 import express from "express";
+import { searchResults, faq, contact } from "../controller/help.controller.js";
 const router = express.Router();
 
 router.get("/searchResults",searchResults);
