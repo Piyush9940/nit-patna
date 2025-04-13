@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile | Smart Traffic Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: linear-gradient(to right, #A5DEF2, #daf0ff);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .topbar {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar h5 {
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .topbar-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topbar-icons i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      height: calc(100vh - 50px);
+      background: #f1f1f1;
+      padding-top: 2rem;
+      border-right: 2px solid #dcdcdc;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover, .sidebar a.active {
+      background: #e0f7fa;
+      color: #007bff;
+      border-left: 4px solid #007bff;
+    }
+
+    .sidebar a i {
+      margin-right: 10px;
+    }
+
+    .profile-section {
+      padding: 3rem 2rem;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease;
+    }
+
+    .profile-img {
+      font-size: 80px;
+      color: #007bff;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .vehicle-info {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Blue Bar -->
+  <div class="topbar">
+    <h5><i class="bi bi-car-front"></i> Smart Traffic Management</h5>
+    <div class="topbar-icons">
+      <i class="bi bi-bell"></i>
+      <div class="bg-light text-dark rounded-circle px-3 py-1 fw-bold" style="font-size: 14px;">JD</div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 sidebar">
+        <a href="#" class="active"><i class="bi bi-person"></i> Profile</a>
+        <a href="UserpageLICENSESCANNER.html"><i class="bi bi-upc-scan"></i> License Scanner</a>
+        <a href="speed.html"><i class="bi bi-speedometer2"></i> Speed Monitor</a>
+        <a href="UserpageSLEEPALERT.html"><i class="bi bi-moon"></i> Sleep Alert</a>
+        <a href="livechat.html"><i class="bi bi-chat-dots"></i> Chatbot</a>
+        <a href="UserpageFINES.html"><i class="bi bi-cash-coin"></i> Fines</a>
+        <a href="UserpagePAYMENT.html"><i class="bi bi-credit-card"></i> Payment</a>
+        <a href="UserpageHISTORY.html"><i class="bi bi-clock-history"></i> History</a>
+        <a href="EMERGENCY-LOCATOR.html"><i class="bi bi-shield-shaded"></i> Emergency-Locator</a>
+        <a href="LIVE-TRAFFIC MAP.html"><i class="fas fa-road"></i> Live-Traffic Map</a>
+        <a href="INCIDENT-HISTORY.html"><i class="bi bi-clock-history"></i> Incident-History</a>
+        <a href="UserREPORT.html"><i class="fas fa-chart-line"></i> Reports</a>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="col-md-9 profile-section">
+        <div class="profile-card" data-aos="zoom-in">
+          <div class="text-left mb-4">
+            <div class="profile-img"><i class="bi bi-person-circle"></i></div>
+            <h4>John Doe</h4>
+            <p class="text-muted">License No: DL123456789</p>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p><span class="info-label">Email:</span> johndoe@example.com</p>
+              <p><span class="info-label">Phone:</span> +1 234 567 890</p>
+              <p><span class="info-label">Address:</span> 123 Street, City, Country</p>
+            </div>
+            <div class="col-md-6 vehicle-info">
+              <h6>Vehicle Information</h6>
+              <p><span class="info-label">Make:</span> Toyota</p>
+              <p><span class="info-label">Model:</span> Camry</p>
+              <p><span class="info-label">Year:</span> 2022</p>
+              <p><span class="info-label">Plate No:</span> ABC 123</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap and AOS Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>

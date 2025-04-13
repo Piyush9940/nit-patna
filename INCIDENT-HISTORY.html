@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident History</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #dfe9f3 0%, #ffffff 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-bottom: 100px;
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    .summary-icon {
+      font-size: 1.5rem;
+      padding: 12px;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    .bg-accident { background-color: #e74c3c; }
+    .bg-patroll { background-color: #3498db; }
+    .bg-other { background-color: #f1c40f; color: #000; }
+    .incident-thumb {
+      max-width: 100px;
+      height: auto;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 8px;
+    }
+    .incident-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+    canvas#incidentChart {
+      max-width: 500px;
+      margin: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <div class="text-center mb-5 animate_animated animate_zoomIn">
+    <h2 class="fw-bold text-primary">Incident History Dashboard</h2>
+    <p class="text-muted">Track and analyze all traffic-related incidents in one place.</p>
+  </div>  <div class="row text-center mb-4">
+    <div class="col-md-4">
+      <div class="summary-icon bg-accident"><i class="fas fa-car-crash"></i></div>
+      <h6>Accidents: <span id="count-accident">0</span></h6>
+    </div>
+    <div class="col-md-4">
+      <div class="summary-icon bg-patroll"><i class="fas fa-shield-alt"></i></div>
+      <h6>Patrolling Issues: <span id="count-patroll">0</span></h6>
+    </div>
+    <div class="col-md-4">
+      <div class="summary-icon bg-other"><i class="fas fa-exclamation-triangle"></i></div>
+      <h6>Other Incidents: <span id="count-other">0</span></h6>
+    </div>
+  </div>  <div class="mb-4">
+    <canvas id="incidentChart"></canvas>
+  </div>  <div class="row mb-4">
+    <div class="col-md-6">
+      <label>Incident Type</label>
+      <select id="filterType" class="form-select">
+        <option value="all">All</option>
+        <option value="accident">Accident</option>
+        <option value="patroll">Patroll</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Date</label>
+      <input type="date" id="filterDate" class="form-control">
+    </div>
+  </div>  <div class="row" id="incidentContainer"></div>
+</div><!-- Image Modal --><div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-light rounded">
+      <div class="modal-body p-0">
+        <img src="" id="modalImage" class="w-100 rounded" alt="Incident Preview">
+      </div>
+    </div>
+  </div>
+</div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script>
+const incidents = [
+  {
+    id: 1,
+    type: 'accident',
+    date: '2025-04-10',
+    location: 'Sector 21, Noida',
+    description: 'Car collision at main junction.',
+    image: 'https://cdn.pixabay.com/photo/2016/11/23/14/45/auto-1853316_1280.jpg'
+  },
+  {
+    id: 2,
+    type: 'patroll',
+    date: '2025-04-11',
+    location: 'Near Metro Station',
+    description: 'No police present during peak hours.',
+    image: 'https://cdn.pixabay.com/photo/2016/11/29/05/15/police-1864327_1280.jpg'
+  },
+  {
+    id: 3,
+    type: 'other',
+    date: '2025-04-12',
+    location: 'Main Highway',
+    description: 'Oil spill caused skidding.',
+    image: 'https://cdn.pixabay.com/photo/2014/05/21/14/27/oil-349658_1280.jpg'
+  },
+  {
+    id: 4,
+    type: 'accident',
+    date: '2025-04-12',
+    location: 'Ring Road',
+    description: 'Bike slipped on gravel.',
+    image: 'https://cdn.pixabay.com/photo/2017/03/02/14/12/motorcycle-2118087_1280.jpg'
+  }
+];
+
+const container = document.getElementById('incidentContainer');
+const filterType = document.getElementById('filterType');
+const filterDate = document.getElementById('filterDate');
+
+function renderIncidents() {
+  container.innerHTML = '';
+  const type = filterType.value;
+  const date = filterDate.value;
+  let counts = { accident: 0, patroll: 0, other: 0 };
+
+  const filtered = incidents.filter(i => (type === 'all' || i.type === type) && (!date || i.date === date));
+  if (filtered.length === 0) container.innerHTML = '<div class="col-12 text-center text-muted">No data found</div>';
+
+  filtered.forEach(incident => {
+    counts[incident.type]++;
+    const colorClass = {
+      accident: 'danger',
+      patroll: 'info',
+      other: 'warning text-dark'
+    }[incident.type];
+
+    const card = `
+      <div class="col-lg-4 col-md-6 animate_animated animate_fadeInUp">
+        <div class="card mb-4 p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="fw-bold mb-0">${incident.location}</h6>
+            <span class="badge bg-${colorClass} incident-badge">${incident.type}</span>
+          </div>
+          <p class="mb-1"><strong>Date:</strong> ${incident.date}</p>
+          <p class="text-muted">${incident.description}</p>
+          <div class="incident-image text-center">
+            <img src="${incident.image}" class="img-thumbnail incident-thumb" onclick="showPreview('${incident.image}')">
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML += card;
+  });
+
+  document.getElementById('count-accident').textContent = counts.accident;
+  document.getElementById('count-patroll').textContent = counts.patroll;
+  document.getElementById('count-other').textContent = counts.other;
+  renderChart(counts);
+}
+
+function showPreview(imgUrl) {
+  document.getElementById('modalImage').src = imgUrl;
+  const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+  modal.show();
+}
+
+function renderChart(data) {
+  const ctx = document.getElementById('incidentChart');
+  if (window.myChart) window.myChart.destroy();
+  window.myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Accident', 'Patroll', 'Other'],
+      datasets: [{
+        data: [data.accident, data.patroll, data.other],
+        backgroundColor: ['#e74c3c', '#3498db', '#f1c40f'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+}
+
+filterType.addEventListener('change', renderIncidents);
+filterDate.addEventListener('input', renderIncidents);
+renderIncidents();
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Permissions | Smart Traffic System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #1d2b64, #f8cdda);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      transition: transform 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-check-input:checked {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .card-title i {
+      color: #f1c40f;
+      margin-right: 10px;
+    }
+
+    .btn-save {
+      background: #ff6ec4;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .toggle-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-lg-3 d-none d-lg-block">
+      <div class="bg-dark bg-opacity-50 text-white rounded-4 p-3 shadow-lg sticky-top mt-4" data-aos="fade-right">
+        <h6><i class="bi bi-info-circle-fill text-warning"></i> Role Summary</h6>
+        <p class="small mb-1"><strong>Drivers:</strong> Limited monitoring access</p>
+        <p class="small mb-1"><strong>Officers:</strong> Access to fines & logs</p>
+        <p class="small"><strong>Admins:</strong> Full control of system</p>
+        <hr class="text-white">
+        <p class="mb-0 small text-end text-muted">Smart Traffic System</p>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <h2 class="text-center mb-5" data-aos="fade-down"><i class="bi bi-shield-lock-fill"></i> Admin Permissions</h2>
+
+      <div class="row g-4">
+        <!-- Driver Role -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+          <div class="card p-4">
+            <h5 class="card-title"><i class="bi bi-person-circle"></i> Driver Access</h5>
+            <div class="toggle-container mt-3">
+              <label for="access1" data-bs-toggle="tooltip" title="Allow drivers to monitor speed">Speed Monitoring</label>
+              <input type="checkbox" class="form-check-input" id="access1" checked>
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access2" data-bs-toggle="tooltip" title="Detects drowsy drivers">Sleep Alert</label>
+              <input type="checkbox" class="form-check-input" id="access2">
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access3" data-bs-toggle="tooltip" title="Chatbot support for drivers">Chatbot</label>
+              <input type="checkbox" class="form-check-input" id="access3" checked>
+            </div>
+          </div>
+        </div>
+
+        <!-- Officer Role -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+          <div class="card p-4">
+            <h5 class="card-title"><i class="bi bi-person-badge-fill"></i> Officer Access</h5>
+            <div class="toggle-container mt-3">
+              <label for="access4" data-bs-toggle="tooltip" title="Allows access to fine management">Fines Section</label>
+              <input type="checkbox" class="form-check-input" id="access4" checked>
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access5" data-bs-toggle="tooltip" title="View history and logs">History Logs</label>
+              <input type="checkbox" class="form-check-input" id="access5" checked>
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access6" data-bs-toggle="tooltip" title="Permission controls for officers">Permission Management</label>
+              <input type="checkbox" class="form-check-input" id="access6">
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Role -->
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+          <div class="card p-4">
+            <h5 class="card-title"><i class="bi bi-person-gear"></i> Admin Access</h5>
+            <div class="toggle-container mt-3">
+              <label for="access7" data-bs-toggle="tooltip" title="System-wide access for admins">Full System Access</label>
+              <input type="checkbox" class="form-check-input" id="access7" checked disabled>
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access8" data-bs-toggle="tooltip" title="Add/edit/remove users">User Management</label>
+              <input type="checkbox" class="form-check-input" id="access8" checked>
+            </div>
+            <div class="toggle-container mt-3">
+              <label for="access9" data-bs-toggle="tooltip" title="Control system backend">Server Controls</label>
+              <input type="checkbox" class="form-check-input" id="access9">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up">
+        <button class="btn btn-save" onclick="savePermissions()"><i class="bi bi-floppy2-fill"></i> Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-4" style="z-index: 1055;">
+  <div id="toastSave" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-check-circle-fill"></i> Permissions updated successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS + AOS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  AOS.init();
+
+  // Enable tooltips
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+
+  // Show toast on save
+  function savePermissions() {
+    const toast = new bootstrap.Toast(document.getElementById('toastSave'));
+    toast.show();
+  }
+</script>
+
+</body>
+</html>

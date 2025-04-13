@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Fines Page</title>
+
+  <!-- Bootstrap, Icons, AOS, Chart.js -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .card, .table-container, .chart-container {
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .table thead {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .form-select, .form-control {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid #ccc;
+    }
+
+    .badge {
+      font-size: 0.9rem;
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mb-4" data-aos="fade-down">
+    <i class="bi bi-receipt text-warning"></i> Admin - Fines Overview
+  </h2>
+
+  <!-- Summary Cards -->
+  <div class="row g-4">
+    <div class="col-md-4" data-aos="fade-up">
+      <div class="card p-4 text-center">
+        <i class="bi bi-cash-coin display-6 text-success"></i>
+        <h5>Total Fines Collected</h5>
+        <p class="fs-4">₹ 1,25,000</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="card p-4 text-center">
+        <i class="bi bi-exclamation-circle display-6 text-danger"></i>
+        <h5>Pending Fines</h5>
+        <p class="fs-4">₹ 32,000</p>
+      </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="card p-4 text-center">
+        <i class="bi bi-people-fill display-6 text-info"></i>
+        <h5>Total Violators</h5>
+        <p class="fs-4">537 Users</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="chart-container mt-5 p-4" data-aos="zoom-in">
+    <h5>Fine Types Summary</h5>
+    <canvas id="fineChart" height="100"></canvas>
+  </div>
+
+  <!-- Filters + Search -->
+  <div class="row mt-4" data-aos="fade-right">
+    <div class="col-md-3 mb-3">
+      <select class="form-select">
+        <option selected>Filter by Fine Type</option>
+        <option>Speeding</option>
+        <option>No Helmet</option>
+        <option>Signal Jump</option>
+      </select>
+    </div>
+    <div class="col-md-3 mb-3">
+      <select class="form-select">
+        <option selected>Filter by Status</option>
+        <option>Paid</option>
+        <option>Pending</option>
+      </select>
+    </div>
+    <div class="col-md-3 mb-3">
+      <input type="date" class="form-control" />
+    </div>
+    <div class="col-md-3 mb-3">
+      <input type="text" id="searchUser" class="form-control" placeholder="Search by User ID..." onkeyup="searchUser()" />
+    </div>
+  </div>
+
+  <!-- Fines Table -->
+  <div class="table-container p-4" data-aos="zoom-in">
+    <div class="d-flex justify-content-between mb-2">
+      <h5>Fine Records</h5>
+      <button class="btn btn-outline-light btn-sm" onclick="exportToCSV()">Export CSV</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered text-light" id="finesTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Fine Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>USR123</td>
+            <td>Speeding</td>
+            <td>₹ 1000</td>
+            <td><span class="badge bg-success">Paid</span></td>
+            <td>2025-04-08</td>
+            <td><button class="btn btn-sm btn-outline-light">Details</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>USR456</td>
+            <td>No Helmet</td>
+            <td>₹ 500</td>
+            <td><span class="badge bg-danger">Pending</span></td>
+            <td>2025-04-07</td>
+            <td><button class="btn btn-sm btn-warning" onclick="showToast()">Send Reminder</button></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>USR789</td>
+            <td>Signal Jump</td>
+            <td>₹ 1200</td>
+            <td><span class="badge bg-success">Paid</span></td>
+            <td>2025-04-06</td>
+            <td><button class="btn btn-sm btn-outline-light">Details</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="reminderToast" class="toast text-bg-success" role="alert" data-bs-delay="3000">
+    <div class="toast-header">
+      <strong class="me-auto">Reminder Sent</strong>
+      <small>Now</small>
+      <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">Fine payment reminder has been sent to the user.</div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  function showToast() {
+    const toast = new bootstrap.Toast(document.getElementById("reminderToast"));
+    toast.show();
+  }
+
+  function searchUser() {
+    const input = document.getElementById("searchUser").value.toUpperCase();
+    const table = document.getElementById("finesTable");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+      const userCell = rows[i].getElementsByTagName("td")[1];
+      if (userCell) {
+        const txtValue = userCell.textContent || userCell.innerText;
+        rows[i].style.display = txtValue.toUpperCase().includes(input) ? "" : "none";
+      }
+    }
+  }
+
+  function exportToCSV() {
+    let csv = [];
+    const rows = document.querySelectorAll("table tr");
+    for (let row of rows) {
+      const cols = row.querySelectorAll("th, td");
+      const rowData = Array.from(cols).map(col => col.innerText.replace(/,/g, "")).join(",");
+      csv.push(rowData);
+    }
+    const csvData = new Blob([csv.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(csvData);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "fines_report.csv";
+    link.click();
+  }
+
+  // Chart.js setup
+  const ctx = document.getElementById('fineChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Speeding', 'No Helmet', 'Signal Jump'],
+      datasets: [{
+        label: 'No. of Violations',
+        data: [45, 30, 60],
+        backgroundColor: ['#f39c12', '#e74c3c', '#2980b9']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+</body>
+</html>

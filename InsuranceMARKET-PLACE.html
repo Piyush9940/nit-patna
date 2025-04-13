@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insurance Marketplace</title>
+
+  <!-- Bootstrap, AOS, Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .market-header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background-color: #ffffff10;
+      border: none;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s;
+      color: #fff;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+
+    .btn-custom {
+      background-color: #00cec9;
+      color: white;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #01a3a4;
+    }
+
+    .search-bar {
+      margin-bottom: 2rem;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #00cec9;
+    }
+
+    .filters label {
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar input {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-4">
+  <div class="market-header" data-aos="fade-down">
+    <h2>Explore Insurance Plans</h2>
+    <p>Compare & choose the best plan for your vehicle</p>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="row align-items-center mb-4 search-bar" data-aos="fade-up">
+    <div class="col-md-8">
+      <input type="text" class="form-control" placeholder="Search for policy names, companies, or coverage..." />
+    </div>
+    <div class="col-md-4">
+      <select class="form-select">
+        <option selected>Sort by</option>
+        <option>Lowest Price</option>
+        <option>Best Coverage</option>
+        <option>Top Rated</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Insurance Plans Grid -->
+  <div class="row g-4">
+    <div class="col-md-4" data-aos="zoom-in">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-shield-check card-icon"></i>
+        </div>
+        <h5 class="text-center">SafeRide Insurance</h5>
+        <p class="text-center text-muted">Full coverage | ₹3,200/year</p>
+        <ul>
+          <li>24x7 Road Assistance</li>
+          <li>Accident Cover up to ₹5L</li>
+          <li>Cashless Garage</li>
+        </ul>
+        <div class="text-center mt-auto">
+          <button class="btn btn-custom w-100">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-speedometer2 card-icon"></i>
+        </div>
+        <h5 class="text-center">TurboCover Policy</h5>
+        <p class="text-center text-muted">Third-party + Theft | ₹2,450/year</p>
+        <ul>
+          <li>Anti-theft coverage</li>
+          <li>Third-party damages</li>
+          <li>Cashless Claims</li>
+        </ul>
+        <div class="text-center mt-auto">
+          <button class="btn btn-custom w-100">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-car-front card-icon"></i>
+        </div>
+        <h5 class="text-center">SmartDrive Premium</h5>
+        <p class="text-center text-muted">Comprehensive | ₹4,000/year</p>
+        <ul>
+          <li>Zero Depreciation</li>
+          <li>Natural Calamities Cover</li>
+          <li>Online Claim Processing</li>
+        </ul>
+        <div class="text-center mt-auto">
+          <button class="btn btn-custom w-100">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Features -->
+  <div class="mt-5" data-aos="fade-up">
+    <h4>Why Choose Us?</h4>
+    <ul>
+      <li>Compare 30+ insurance providers</li>
+      <li>Instant digital policy</li>
+      <li>No hidden charges</li>
+      <li>Support in regional languages</li>
+    </ul>
+  </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insurance Marketplace</title>
+
+  <!-- Bootstrap, AOS, Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .market-header {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background-color: #ffffff15;
+      border: none;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease-in-out;
+      color: #fff;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .btn-custom {
+      background-color: #00cec9;
+      color: white;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #01a3a4;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #00cec9;
+    }
+
+    .carousel img {
+      max-height: 120px;
+      object-fit: contain;
+    }
+
+    .testimonial {
+      background-color: #ffffff10;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .tooltip-inner {
+      background-color: #00cec9 !important;
+      color: #fff;
+    }
+
+    .modal-content {
+      background-color: #f9f9f9;
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-4">
+  <!-- Header -->
+  <div class="market-header" data-aos="fade-down">
+    <h2>Explore Insurance Marketplace</h2>
+    <p>Compare, Choose & Insure Smartly</p>
+  </div>
+
+  <!-- Top Insurers Carousel -->
+  <div id="insurerCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-aos="zoom-in">
+    <div class="carousel-inner text-center">
+      <div class="carousel-item active">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/LIC_Logo.svg/512px-LIC_Logo.svg.png" alt="LIC" class="mx-2" />
+        <img src="https://1000logos.net/wp-content/uploads/2022/06/HDFC-Logo.png" alt="HDFC" class="mx-2" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/ICICI_Bank_Logo.svg/512px-ICICI_Bank_Logo.svg.png" alt="ICICI" class="mx-2" />
+      </div>
+      <div class="carousel-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Bajaj_Auto_logo.svg/512px-Bajaj_Auto_logo.svg.png" alt="Bajaj" class="mx-2" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/SBI-logo.svg/512px-SBI-logo.svg.png" alt="SBI" class="mx-2" />
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Axis_Bank_logo.svg/512px-Axis_Bank_logo.svg.png" alt="Axis" class="mx-2" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Insurance Cards -->
+  <div class="row g-4">
+    <div class="col-md-4" data-aos="zoom-in">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-shield-check card-icon"></i>
+        </div>
+        <h5 class="text-center">SafeRide Insurance</h5>
+        <p class="text-center text-muted">₹3,200/year</p>
+        <ul>
+          <li data-bs-toggle="tooltip" title="24x7 roadside help">24x7 Assistance</li>
+          <li>Accident Cover ₹5L</li>
+          <li>Zero Depreciation</li>
+        </ul>
+        <div class="d-flex justify-content-between mt-auto">
+          <button class="btn btn-sm btn-custom">Buy</button>
+          <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#compareModal">Compare</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-speedometer2 card-icon"></i>
+        </div>
+        <h5 class="text-center">TurboCover Policy</h5>
+        <p class="text-center text-muted">₹2,450/year</p>
+        <ul>
+          <li>Theft Protection</li>
+          <li>TP Liability</li>
+          <li>1000+ Garages</li>
+        </ul>
+        <div class="d-flex justify-content-between mt-auto">
+          <button class="btn btn-sm btn-custom">Buy</button>
+          <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#compareModal">Compare</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+      <div class="card p-4 h-100">
+        <div class="text-center">
+          <i class="bi bi-car-front card-icon"></i>
+        </div>
+        <h5 class="text-center">SmartDrive Premium</h5>
+        <p class="text-center text-muted">₹4,000/year</p>
+        <ul>
+          <li>Natural Calamity</li>
+          <li>Online Claims</li>
+          <li>No Claim Bonus</li>
+        </ul>
+        <div class="d-flex justify-content-between mt-auto">
+          <button class="btn btn-sm btn-custom">Buy</button>
+          <button class="btn btn-sm btn-outline-light" data-bs-toggle="modal" data-bs-target="#compareModal">Compare</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="mt-5" data-aos="fade-up">
+    <h4>User Experiences</h4>
+    <div class="testimonial">
+      "The platform helped me save ₹1200 on my car insurance. Totally recommended!" — Ravi, Pune
+    </div>
+    <div class="testimonial">
+      "Super fast and user-friendly! Bought insurance in just 5 minutes." — Priya, Hyderabad
+    </div>
+  </div>
+</div>
+
+<!-- Comparison Modal -->
+<div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Plan Comparison</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Feature</th>
+              <th>SafeRide</th>
+              <th>TurboCover</th>
+              <th>SmartDrive</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Price</td><td>₹3200</td><td>₹2450</td><td>₹4000</td></tr>
+            <tr><td>Road Assistance</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+            <tr><td>Zero Depreciation</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+            <tr><td>Online Claims</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emergency Service Locator</title>
+  <!-- Bootstrap & Animate.css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #fff);
+      animation: bgShift 10s infinite alternate;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+    @keyframes bgShift {
+      0% { background: linear-gradient(135deg, #e0f7fa, #fff); }
+      100% { background: linear-gradient(135deg, #f3e5f5, #fff); }
+    }
+    .section-title {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      animation: fadeInDown 1.5s ease-in-out;
+    }
+    .search-bar {
+      max-width: 600px;
+      margin: 0 auto 50px;
+      animation: bounceIn 1.8s;
+    }
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 10px #007bff;
+      transition: 0.3s ease;
+    }
+    .card {
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease-in-out;
+      background-color: #ffffffd9;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+    }
+    .icon-circle {
+      width: 70px;
+      height: 70px;
+      background-color: #007bff;
+      color: white;
+      font-size: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      box-shadow: 0 0 20px #007bff;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #007bff; }
+      50% { transform: scale(1.1); box-shadow: 0 0 25px #007bff; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #007bff; }
+    }
+    .btn-animate {
+      transition: all 0.3s ease;
+      border-radius: 30px;
+      padding: 10px 25px;
+      font-weight: 500;
+    }
+    .btn-animate:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .row.g-4 > div {
+      animation: zoomIn 1.2s ease forwards;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .card:hover {
+      animation: float 2s infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="section-title animate_animated animate_fadeInDown">Emergency Service Locator</h2>
+
+    <div class="search-bar mb-4">
+      <input type="text" class="form-control form-control-lg shadow" placeholder="Search for services like 'Hospital near me'">
+    </div>
+
+    <div class="row g-4">
+      <!-- Hospital -->
+      <div class="col-md-4">
+        <div class="card p-4 animate_animated animate_zoomIn">
+          <div class="icon-circle bg-danger">
+            <i class="bi bi-hospital"></i>
+          </div>
+          <h5 class="text-center mt-3">Nearest Hospital</h5>
+          <p class="text-center text-muted">Instant access to emergency medical facilities nearby.</p>
+          <!-- Modal trigger -->
+          <button type="button" class="btn btn-danger btn-animate d-block mx-auto mt-2" 
+            data-bs-toggle="modal" data-bs-target="#mapModal">Locate</button>
+        </div>
+      </div>
+
+      <!-- Police Station -->
+      <div class="col-md-4">
+        <div class="card p-4 animate_animated animatezoomIn animate_delay-1s">
+          <div class="icon-circle bg-primary">
+            <i class="bi bi-shield-shaded"></i>
+          </div>
+          <h5 class="text-center mt-3">Police Station</h5>
+          <p class="text-center text-muted">Find the closest law enforcement support easily.</p>
+          <!-- Modal trigger -->
+          <button type="button" class="btn btn-primary btn-animate d-block mx-auto mt-2" 
+            data-bs-toggle="modal" data-bs-target="#mapModal">Locate</button>
+        </div>
+      </div>
+
+      <!-- Fire Station -->
+      <div class="col-md-4">
+        <div class="card p-4 animate_animated animatezoomIn animate_delay-2s">
+          <div class="icon-circle bg-warning">
+            <i class="bi bi-fire"></i>
+          </div>
+          <h5 class="text-center mt-3">Fire Station</h5>
+          <p class="text-center text-muted">Get immediate directions to the nearest fire station.</p>
+          <!-- Modal trigger -->
+          <button type="button" class="btn btn-warning btn-animate d-block mx-auto mt-2 text-white" 
+            data-bs-toggle="modal" data-bs-target="#mapModal">Locate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Modal with Carousel -->
+  <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalLabel">Service Locator Map</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="mapCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <!-- First Carousel item -->
+              <div class="carousel-item active">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d219532.06856157235!2d77.4772148551474!3d12.813147072873955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1spolice%20station%20near%20me!5e1!3m2!1sen!2sin!4v1744455249957!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+              <!-- Second Carousel item -->
+              <div class="carousel-item">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d238290.53075334677!2d77.4772140083477!3d12.813676957540018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1shospital%20near%20me%20!5e1!3m2!1sen!2sin!4v1744455282845!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+              <!-- Third Carousel item -->
+              <div class="carousel-item">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d280029.5141000341!2d77.48683112747457!3d12.799179270211722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sfire%20station%20near%20me%20!5e1!3m2!1sen!2sin!4v1744455356940!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#mapCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mapCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-animate" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
