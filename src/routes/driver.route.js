@@ -1,4 +1,5 @@
 import express ,{Router}  from 'express';
+import { profile, getLicense, addLicense, chatbot, driverFine, driverHistory, sleep, speed, getSpeed, sleepAlert, payment } from '../controller/driver.controller.js';
 const router = express.Router();
 
 router.post("/profile",profile);

@@ -1,14 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import path from "path";
+ 
 import { fileURLToPath } from "url";
+import { dirname } from "path";
+import admin from "./routes/admin.route.js";
+import hospital from "./routes/hospital.route.js";
+import driver from "./routes/driver.route.js";
+import help from "./routes/help.route.js";
+import insurance from "./routes/insurance.route.js";
+
 
 
 import authRoutes from "./routes/auth.route.js";
-import user from "./routes/dashboard.route.js";
+ 
 import { connectDB } from "./lib/db.js";
-import admin from "./routes/admin.route.js";
+ 
 import cors from "cors";
 
 dotenv.config();
@@ -30,9 +37,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use("/api/auth", authRoutes);// Authentication routes    
-app.use("/api/user", user); // User routes
+app.use("/api/auth", authRoutes);// Authentication routes  
+app.use("/api/hospital", hospital); // Hospital routes
+app.use("/api/driver", driver); // Driver routes
+app.use("/api/help", help); // Help routes
+app.use("/api/insurance", insurance); // Insurance routes
 app.use("/api/admin", admin); // Admin routes
+app.use("/api/help", help); // Help routes
+app.use("/api/insurance", insurance); // Insurance routes
+  
+  // Admin routes
 
 // Serve static HTML file (fallback route or homepage)
  

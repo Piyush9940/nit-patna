@@ -1,11 +1,15 @@
 import axios from 'axios';
 import hospitalModel from '../models/hospital.model.js';
 
-
 const apiKey = process.env.GOOGLE_API_KEY;
 
-exports.getNearbyHospitals = async (req, res) => {
+// Get nearby hospitals using Google Places API and store in MongoDB
+export const getNearbyHospitals = async (req, res) => {
   const { lat, lng } = req.body;
+
+  if (!lat || !lng) {
+    return res.status(400).json({ error: "Latitude and longitude are required" });
+  }
 
   try {
     const nearbyUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=3000&type=hospital&key=${apiKey}`;
@@ -19,9 +23,9 @@ exports.getNearbyHospitals = async (req, res) => {
       const detail = await axios.get(detailsUrl);
       const d = detail.data.result;
 
-      const exists = await Hospital.findOne({ place_id: h.place_id });
+      const exists = await hospitalModel.findOne({ place_id: h.place_id });
       if (!exists) {
-        const newHospital = new Hospital({
+        const newHospital = new hospitalModel({
           name: d.name,
           address: d.formatted_address,
           phone: d.formatted_phone_number || "N/A",
@@ -45,24 +49,18 @@ exports.getNearbyHospitals = async (req, res) => {
   }
 };
 
-exports.getHospitalsFromDB = async (req, res) => {
+// Get hospitals from DB (limit 10)
+export const getHospitalsFromDB = async (req, res) => {
   try {
-    // Fetch hospitals from the database, limiting to 10 results
-    const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-    if (!GOOGLE_API_KEY) {
-      return res.status(500).json({ error: "Google API key not found" });
-    }
-
-
-    const hospitals = await Hospital.find().limit(10);
-
-
+    const hospitals = await hospitalModel.find().limit(10);
     res.status(200).json(hospitals);
   } catch (err) {
     res.status(500).json({ error: "Error retrieving hospitals" });
   }
 };
-exports.getHospitalById = async (req, res) => {
+
+// Get hospital by ID
+export const getHospitalById = async (req, res) => {
   try {
     const { id } = req.params;
     const hospital = await hospitalModel.findById(id);
@@ -75,39 +73,45 @@ exports.getHospitalById = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-exports.getHospitalByName = async (req, res) => {
+
+// Get hospital by name
+export const getHospitalByName = async (req, res) => {
   try {
     const { name } = req.params;
-    const hospital = await hospitalModel.find({ name: { $regex: name, $options: "i" } });
-    if (!hospital) {
-      return res.status(404).json({ message: "Hospital not found" });
+    const hospitals = await hospitalModel.find({ name: { $regex: name, $options: "i" } });
+    if (!hospitals.length) {
+      return res.status(404).json({ message: "No hospitals found" });
     }
-    res.status(200).json(hospital);
+    res.status(200).json(hospitals);
   } catch (error) {
     console.error("Error fetching hospital by name:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-exports.getHospitalByQrCode = async (req, res) => {
+
+// Get hospital by QR code
+export const getHospitalByQrCode = async (req, res) => {
   try {
     const { qrCode } = req.params;
-    const hospital = await hospitalModel.find({ qrCode: { $regex: qrCode, $options: "i" } });
-    if (!hospital) {
-      return res.status(404).json({ message: "Hospital not found" });
+    const hospitals = await hospitalModel.find({ qrCode: { $regex: qrCode, $options: "i" } });
+    if (!hospitals.length) {
+      return res.status(404).json({ message: "No hospitals found" });
     }
-    res.status(200).json(hospital);
+    res.status(200).json(hospitals);
   } catch (error) {
     console.error("Error fetching hospital by QR code:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-exports.getHospitalByLocation = async (req, res) => {
+
+// Get hospitals by geolocation (within 5 miles)
+export const getHospitalByLocation = async (req, res) => {
   try {
     const { lat, lng } = req.params;
     const hospitals = await hospitalModel.find({
       location: {
         $geoWithin: {
-          $centerSphere: [[lng, lat], 5 / 3963.2] // 5 miles radius
+          $centerSphere: [[parseFloat(lng), parseFloat(lat)], 5 / 3963.2] // Earth radius in miles
         }
       }
     });
@@ -120,18 +124,15 @@ exports.getHospitalByLocation = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-exports.updateHospital = async (req, res) => {
+
+// Update hospital
+export const updateHospital = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, address, phone, rating } = req.body;
     const updatedHospital = await hospitalModel.findByIdAndUpdate(
       id,
-      {
-        name,
-        address,
-        phone,
-        rating
-      },
+      { name, address, phone, rating },
       { new: true }
     );
     res.status(200).json(updatedHospital);
@@ -140,4 +141,3 @@ exports.updateHospital = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-

@@ -222,6 +222,26 @@
         button.classList.add('btn-animate');
       });
     });
+
+
+    document.querySelectorAll('.animate-on-click').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent form from submitting the usual way
+
+    // Animate the button
+    button.classList.remove('btn-animate');
+    void button.offsetWidth;
+    button.classList.add('btn-animate');
+
+    // If it's the login button, redirect
+    if (button.textContent.trim() === "Login") {
+      setTimeout(() => {
+        window.location.href = "admin-dashboard.html";
+      }, 400); // Wait for animation to finish
+    }
+  });
+});
+
   </script>
 </body>
 </html>
