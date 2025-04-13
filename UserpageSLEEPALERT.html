@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sleep Alert | Smart Traffic System</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding-top: 50px;
+    }
+
+    .alert-box {
+      background-color: #ff4d4d;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 30px;
+      border-radius: 15px;
+      animation: shake 1s infinite;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .btn-alert {
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,77,77, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255,77,77, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,77,77, 0); }
+    }
+
+    .card {
+      background-color: #354967;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+    }
+
+    .carousel-item {
+      background-color: #132b44;
+      padding: 30px;
+      border-radius: 1rem;
+    }
+
+    .try{
+      color: rgb(240, 255, 247);
+      font-style: italic;
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: #149345 2px 2px;
+    }
+
+    
+    footer {
+      margin-top: 60px;
+      padding: 20px 0;
+      background-color: #101d2c;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container text-center">
+  <h1 class="mb-4" data-aos="fade-down">Driver Sleep Alert System</h1>
+
+  <div class="alert-box" data-aos="zoom-in">
+    WARNING: You seem to be drowsy! Please take a break!
+  </div>
+
+  <button id="simulateBtn" class="btn btn-danger btn-lg btn-alert">
+    Simulate Sleep Detection
+  </button>
+
+  <p class="mt-4  try">Stay safe. Stay alert.</p>
+</div>
+
+<audio id="alertSound" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3" preload="auto"></audio>
+
+<!-- Info Cards Section -->
+<div class="container mt-5">
+  <div class="row g-4">
+    <div class="col-md-6" data-aos="fade-right">
+      <div class="card p-4 h-100">
+        <h4>Why Sleep Detection Matters?</h4>
+        <p>Drowsy driving is as dangerous as drunk driving. This system helps detect signs of sleepiness and alerts you immediately to avoid accidents.</p>
+      </div>
+    </div>
+    <div class="col-md-6" data-aos="fade-left">
+      <div class="card p-4 h-100">
+        <h4>How It Works?</h4>
+        <p>We use camera input, facial recognition, and AI algorithms to monitor blink rate, head nods, and other indicators to detect sleepiness in real time.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tips Carousel -->
+<div class="container mt-5" data-aos="zoom-in">
+  <h3 class="text-center mb-3">Rest Tips for Long Drives</h3>
+  <div id="tipsCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner text-center">
+      <div class="carousel-item active">
+        <h5>Take a break every 2 hours</h5>
+        <p>Step out, stretch, and get fresh air to stay alert.</p>
+      </div>
+      <div class="carousel-item">
+        <h5>Avoid heavy meals before driving</h5>
+        <p>Light meals help avoid fatigue and drowsiness.</p>
+      </div>
+      <div class="carousel-item">
+        <h5>Play music or talk</h5>
+        <p>Stimulating conversation or music keeps your brain active.</p>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#tipsCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#tipsCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="text-center mt-5">
+  <p>Need help? Contact our 24x7 support: <br>Email: support@smarttraffic.ai | Phone: +91 99999 99999</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  const simulateBtn = document.getElementById('simulateBtn');
+  const alertSound = document.getElementById('alertSound');
+
+  simulateBtn.addEventListener('click', () => {
+    alertSound.play();
+    alert('Sleep detected! Please take a rest.');
+  });
+</script>
+</body>
+</html>

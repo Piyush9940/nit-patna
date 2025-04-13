@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Alert Email Sender</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 15px;
+      color: #fff;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-control,
+    .form-select,
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #fff;
+    }
+
+    .form-control::placeholder {
+      color: #ddd;
+    }
+
+    .btn-send {
+      background-color: #ff416c;
+      color: #fff;
+      border-radius: 30px;
+      padding: 10px 30px;
+      border: none;
+      font-weight: bold;
+    }
+
+    .btn-send:hover {
+      background-color: #ff2b58;
+    }
+
+    .char-counter {
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: right;
+    }
+
+    .glow-icon {
+      color: #ff416c;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 10px #ff416c; }
+      50% { text-shadow: 0 0 20px #ff416c, 0 0 30px #ff416c; }
+      100% { text-shadow: 0 0 10px #ff416c; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mb-5" data-aos="fade-down">
+    <i class="bi bi-megaphone-fill glow-icon"></i> Admin Alert Email Sender
+  </h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card p-4" data-aos="zoom-in">
+        <form id="alertForm">
+          <div class="mb-3">
+            <label for="recipientGroup" class="form-label">Send To</label>
+            <select class="form-select" id="recipientGroup" required>
+              <option value="" disabled selected>Select group</option>
+              <option>All Drivers</option>
+              <option>Traffic Officers</option>
+              <option>Control Center Admins</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="emailTo" class="form-label"> Enter Specific Email(Optional)</label>
+            <input type="email" class="form-control" id="emailTo" placeholder="Optional">
+          </div>
+
+          <div class="mb-3">
+            <label for="alertType" class="form-label">Alert Type</label>
+            <select class="form-select" id="alertType" required>
+              <option value="" disabled selected>Select type</option>
+              <option>System Maintenance</option>
+              <option>Speed Violation</option>
+              <option>Weather Emergency</option>
+              <option>Security Notice</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="emailSubject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="emailSubject" placeholder="Subject line" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="emailBody" class="form-label">Message</label>
+            <textarea class="form-control" id="emailBody" rows="5" placeholder="Enter your alert message here..." maxlength="500" required></textarea>
+            <div class="char-counter" id="charCount">0 / 500</div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-send"><i class="bi bi-send-check-fill"></i> Send Alert</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-4" style="z-index: 9999;">
+  <div id="toastSuccess" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-check2-circle"></i> Alert email sent successfully!
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  AOS.init();
+
+  const alertForm = document.getElementById('alertForm');
+  const toast = new bootstrap.Toast(document.getElementById('toastSuccess'));
+  const charCount = document.getElementById('charCount');
+  const emailBody = document.getElementById('emailBody');
+
+  emailBody.addEventListener('input', () => {
+    charCount.textContent = $;{emailBody.value.length} 500;
+  });
+
+  alertForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    toast.show();
+    alertForm.reset();
+    charCount.textContent = "0 / 500";
+  });
+</script>
+
+</body>
+</html>

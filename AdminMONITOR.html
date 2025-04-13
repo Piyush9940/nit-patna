@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Monitor Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap & AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background: linear-gradient(120deg, #2c5364, #203a43, #0f2027);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px 15px;
+    }
+
+    .dashboard-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0dcaf0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: white;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-right: 10px;
+    }
+
+    .live-time {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .scroll-box {
+      max-height: 200px;
+      overflow-y: auto;
+      color: #fff;
+    }
+
+    .status-online {
+      color: #28d67f;
+    }
+
+    .log-entry {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      padding: 5px 0;
+    }
+
+    .section-title {
+      margin-top: 30px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border-left: 5px solid #0dcaf0;
+      padding-left: 15px;
+    }
+
+    .progress {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
+
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+
+    .filter-box input {
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-title" data-aos="fade-down">
+    <i class="bi bi-speedometer text-info"></i> Admin Monitor Dashboard
+  </div>
+
+  <div class="live-time" id="liveTime" data-aos="fade-in">Loading time...</div>
+
+  <div class="container">
+    <div class="row g-4">
+      <!-- Top Cards -->
+      <div class="col-md-6 col-lg-3" data-aos="fade-up">
+        <div class="card p-4 text-center" onclick="window.location.href='speed.html'" style="cursor: pointer;">
+          <i class="bi bi-speedometer2 card-icon text-warning"></i>
+          <h5>Speed Monitoring</h5>
+          <p>Live speed tracking of vehicles.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="card p-4 text-center" onclick="window.location.href='sleepDetection.html'" style="cursor: pointer;">
+          <i class="bi bi-moon-stars card-icon text-primary"></i>
+          <h5>Sleep Detection</h5>
+          <p>Drowsiness alerts and logs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="card p-4 text-center" onclick="window.location.href='LIVE-TRAFFIC-MAP.html'" style="cursor: pointer;">
+          <i class="bi bi-geo-alt-fill card-icon text-danger"></i>
+          <h5>Location Monitor</h5>
+          <p>Real-time vehicle positioning.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="card p-4 text-center" onclick="window.location.href='INCIDENT-HISTORY.html'" style="cursor: pointer;">
+          <i class="bi bi-exclamation-triangle-fill card-icon text-danger"></i>
+          <h5>Incident Reports</h5>
+          <p>Issue reporting and alerts.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Status, Active Users -->
+    <div class="row g-4 mt-4">
+      <div class="col-md-6 col-lg-3" data-aos="fade-right">
+        <div class="card p-3">
+          <h6><i class="bi bi-hdd-network text-info"></i> System Status</h6>
+          <p class="mb-0">Monitoring: <span class="status-online">Online</span></p>
+          <p class="mb-0">Database: <span class="status-online">Connected</span></p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3" data-aos="fade-right" data-aos-delay="100">
+        <div class="card p-3 text-center">
+          <h6><i class="bi bi-people-fill text-success"></i> Active Users</h6>
+          <h2 id="activeUsers">0</h2>
+          <p>Currently logged in</p>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="col-md-6 col-lg-3" data-aos="fade-left" data-aos-delay="200">
+        <div class="card p-3">
+          <h6><i class="bi bi-bell-fill text-warning"></i> Recent Alerts</h6>
+          <div class="scroll-box">
+            <p>[08:22] Speed exceeded - A324</p>
+            <p>[08:00] Sleep alert - D552</p>
+            <p>[07:50] Manual SOS - Highway 45</p>
+            <p>[07:40] Off-route - B981</p>
+            <p>[07:15] Signal lost - Z100</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Logs -->
+      <div class="col-md-6 col-lg-3" data-aos="fade-left" data-aos-delay="300">
+        <div class="card p-3">
+          <h6><i class="bi bi-activity text-light"></i> Live User Activity</h6>
+          <div class="scroll-box" id="liveLogs">
+            <div class="log-entry">[08:30] Admin#1 accessed dashboard</div>
+            <div class="log-entry">[08:28] Admin#2 reviewed reports</div>
+            <div class="log-entry">[08:25] Admin#3 logged in</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra Section: System Load Charts -->
+    <div class="section-title mt-5">System Load Overview</div>
+    <div class="row g-4 mt-2">
+      <div class="col-md-6 col-lg-3" data-aos="zoom-in">
+        <div class="card p-3">
+          <h6>Server Load</h6>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-danger" style="width: 68%">68%</div>
+          </div>
+          <small>Average CPU usage</small>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card p-3">
+          <h6>Memory Usage</h6>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-warning" style="width: 52%">52%</div>
+          </div>
+          <small>RAM consumption</small>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card p-3">
+          <h6>Network I/O</h6>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-info" style="width: 75%">75%</div>
+          </div>
+          <small>Upload & download rate</small>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card p-3">
+          <h6>API Health</h6>
+          <div class="progress mb-2">
+            <div class="progress-bar bg-success" style="width: 92%">92%</div>
+          </div>
+          <small>Service responsiveness</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init();
+
+    // Live Time
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("liveTime").innerText = "Live Time: " + now.toLocaleTimeString();
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Animated Active Users
+    function animateUsers() {
+      let count = 0;
+      const target = 27;
+      const interval = setInterval(() => {
+        document.getElementById("activeUsers").textContent = count;
+        count++;
+        if (count > target) clearInterval(interval);
+      }, 40);
+    }
+
+    animateUsers();
+  </script>
+
+</body>
+</html>

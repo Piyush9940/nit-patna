@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Traffic Fines | Smart Traffic Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #176085, #aeb6c5);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    .fade-in {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-weight: bold;
+      color: #00ffcc;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffcc; }
+      to { text-shadow: 0 0 20px #00ffcc, 0 0 30px #00bfa6; }
+    }
+
+    .search-box input {
+      border-radius: 30px;
+      padding: 10px 20px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+    }
+
+    .table-container {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+      overflow-x: auto;
+    }
+
+    .table th {
+      color: #00ffcc;
+    }
+
+    .table td {
+      vertical-align: middle;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #ff4d4d;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    @media (max-width: 768px) {
+      .table-container {
+        padding: 10px;
+      }
+
+      .table thead {
+        display: none;
+      }
+
+      .table tbody td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+        color: #00ffcc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container fade-in">
+    <!-- Header -->
+    <div class="header">
+      <h1>Traffic Fines Dashboard</h1>
+      <p>Review your violations and pending fines</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box mb-4">
+      <input type="text" id="searchInput" onkeyup="filterTable()" class="form-control" placeholder="Search by Fine Type or Date">
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+      <table class="table table-hover table-borderless text-white">
+        <thead>
+          <tr>
+            <th>Fine Type</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="fineTable">
+          <tr>
+            <td data-label="Fine Type">Over Speeding</td>
+            <td data-label="Date">2025-04-09</td>
+            <td data-label="Location">MG Road</td>
+            <td data-label="Amount" class="highlight">₹1500</td>
+            <td data-label="Status">Pending</td>
+          </tr>
+          <tr>
+            <td data-label="Fine Type">Signal Jump</td>
+            <td data-label="Date">2025-04-01</td>
+            <td data-label="Location">Central Circle</td>
+            <td data-label="Amount">₹1000</td>
+            <td data-label="Status">Paid</td>
+          </tr>
+          <tr>
+            <td data-label="Fine Type">No Helmet</td>
+            <td data-label="Date">2025-03-28</td>
+            <td data-label="Location">Highway 9</td>
+            <td data-label="Amount" class="highlight">₹500</td>
+            <td data-label="Status">Pending</td>
+          </tr>
+          <tr>
+            <td data-label="Fine Type">Wrong Parking</td>
+            <td data-label="Date">2025-03-25</td>
+            <td data-label="Location">Sector 5</td>
+            <td data-label="Amount">₹300</td>
+            <td data-label="Status">Paid</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Summary Section -->
+<div class="row text-center mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card bg-transparent border border-success text-white shadow-lg h-100 animate_animated animate_fadeInUp">
+        <div class="card-body">
+          <h5 class="card-title text-success">Total Fines</h5>
+          <p class="display-6">₹3300</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-transparent border border-danger text-white shadow-lg h-100 animate_animated animate_fadeInUp">
+        <div class="card-body">
+          <h5 class="card-title text-danger">Pending Fines</h5>
+          <p class="display-6 highlight">₹2000</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card bg-transparent border border-info text-white shadow-lg h-100 animate_animated animate_fadeInUp">
+        <div class="card-body">
+          <h5 class="card-title text-info">Paid Fines</h5>
+          <p class="display-6">₹1300</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterTable() {
+      let input = document.getElementById("searchInput");
+      let filter = input.value.toUpperCase();
+      let table = document.getElementById("fineTable");
+      let tr = table.getElementsByTagName("tr");
+
+      for (let i = 0; i < tr.length; i++) {
+        let td1 = tr[i].getElementsByTagName("td")[0];
+        let td2 = tr[i].getElementsByTagName("td")[1];
+        if (td1 || td2) {
+          let txtValue1 = td1.textContent || td1.innerText;
+          let txtValue2 = td2.textContent || td2.innerText;
+          if (txtValue1.toUpperCase().indexOf(filter) > -1 ||
+              txtValue2.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
